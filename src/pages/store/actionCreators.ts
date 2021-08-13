@@ -5,6 +5,8 @@ import {
   INIT_TODOLIST,
   CHANGE_VALUE,
   ADD_TODOLIST,
+  INIT_WORDS,
+  SELECT_TAG,
 } from './actionType';
 import axios from 'axios';
 
@@ -49,3 +51,22 @@ export const addList = () => {
     });
   };
 };
+
+export const getInitWord = (value) => ({
+  type: INIT_WORDS,
+  value,
+});
+
+export const getWordsList = () => {
+  return (dispatch) => {
+    axios.get('test/list').then((res) => {
+      const action = getInitWord(res.data.wordList);
+      dispatch(action);
+    });
+  };
+};
+
+export const selectWord = (value) => ({
+  type: SELECT_TAG,
+  value,
+});

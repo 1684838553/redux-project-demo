@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Input, Button, Space, List } from 'antd';
+// import { RedoOutlined } from '@ant-design/icons';
 import store from './store';
-import axios from 'axios';
 import './mock/testMock';
 import {
   getDeleteItem,
@@ -9,11 +9,14 @@ import {
   getTodoList,
   changeValue,
   addList,
+  getWordsList,
+  selectWord,
 } from './store/actionCreators';
 export default function TodoList(): React.ReactNode {
   const inputRef = useRef<any>();
   const [list, setList] = useState<any>(store.getState().list);
   const [value, setValue] = useState<any>(store.getState().value);
+  const [wordsList, setWordsList] = useState<any>(store.getState().words);
 
   useEffect(() => {
     // axios.get('test/list').then((res) => {
@@ -26,11 +29,10 @@ export default function TodoList(): React.ReactNode {
     store.dispatch(action);
   }, []);
 
-  console.log(store.getState(), 'll');
-
   const getChangeData = () => {
     setList(store.getState().list);
     setValue(store.getState().value);
+    setWordsList(store.getState().words);
   };
   store.subscribe(getChangeData);
 
@@ -46,7 +48,6 @@ export default function TodoList(): React.ReactNode {
   };
 
   const onChange = (e) => {
-    console.log(e.target.value, 'kkk');
     const action = changeValue(e.target.valueue);
     store.dispatch(action);
   };
@@ -55,6 +56,20 @@ export default function TodoList(): React.ReactNode {
     const action = addList();
     store.dispatch(action);
   };
+
+  const onfocus = () => {
+    const action = getWordsList();
+    store.dispatch(action);
+  };
+
+  const selectTag = (value) => {
+    const action = selectWord(value);
+    store.dispatch(action);
+  };
+
+  // const reloadWords = () => {
+  //   onfocus();
+  // };
 
   return (
     <div className="page">
@@ -65,11 +80,27 @@ export default function TodoList(): React.ReactNode {
           ref={inputRef}
           value={value}
           onChange={onChange}
+          onFocus={onfocus}
         />
         <Button type="primary" onClick={submit}>
           提交
         </Button>
       </Space>
+
+      <div style={{ marginBottom: '24px' }}>
+        {wordsList?.map((item: string, index: number) => {
+          return (
+            <Button
+              key={item}
+              style={{ marginRight: '10px', marginBottom: '10px' }}
+              onClick={() => selectTag({ item, index })}
+            >
+              {item}
+            </Button>
+          );
+        })}
+        {/* {wordsList.length > 0 ? <RedoOutlined onClick={reloadWords} /> : null} */}
+      </div>
 
       <List
         bordered
