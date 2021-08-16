@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Input, Button, Space, List } from 'antd';
-// import { RedoOutlined } from '@ant-design/icons';
+import { RedoOutlined } from '@ant-design/icons';
 import store from './store';
 import './mock/testMock';
 import {
@@ -67,9 +67,9 @@ export default function TodoList(): React.ReactNode {
     store.dispatch(action);
   };
 
-  // const reloadWords = () => {
-  //   onfocus();
-  // };
+  const reloadWords = () => {
+    onfocus();
+  };
 
   return (
     <div className="page">
@@ -99,7 +99,7 @@ export default function TodoList(): React.ReactNode {
             </Button>
           );
         })}
-        {/* {wordsList.length > 0 ? <RedoOutlined onClick={reloadWords} /> : null} */}
+        {wordsList.length > 0 ? <RedoOutlined onClick={reloadWords} /> : null}
       </div>
 
       <List

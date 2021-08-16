@@ -26,7 +26,7 @@ export default (state = defaultState, action) => {
   }
   switch (action.type) {
     case SUBMIT_INPUT_VALUE:
-      newState.list = [...state.list, action.value];
+      newState.list = [action.value, ...state.list];
       newState.value = '';
       return newState;
     case DELETE_ITEM:

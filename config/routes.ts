@@ -21,12 +21,16 @@
   {
     path: '/welcome',
     name: 'welcome',
-    icon: 'smile',
     component: './Welcome',
   },
   {
     path: '/',
     redirect: '/welcome',
+  },
+  {
+    path: '/controllComponent',
+    name: 'controllComponent',
+    component: './ControllComponent',
   },
   {
     component: './404',
